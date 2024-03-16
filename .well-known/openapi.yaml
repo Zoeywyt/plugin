@@ -1,0 +1,130 @@
+openapi: 3.0.1
+info:
+    title: 心情搭配师
+    description: 根据用户性格推荐符合用户当前心情的活动
+    version: "v1"
+servers:
+    - url: http://localhost:8081  # 替换成你实际服务启动的地址和端口，调试环境可以是localhost，正式上线需要换成公网IP
+paths:
+
+    /get_activitylist:
+        get:
+            operationId: getActivityList
+            summary: 展示活动列表
+            responses:
+                "200":
+                    description: 列表展示完成
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/getActivityList"
+    /generate_activities:
+        post:
+            operationId: generateActivities
+            summary: 获取心情，生成活动表单
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/generateActivities"
+            responses:
+                "200":
+                    description: 活动列表生成成功
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/responseActivities"
+    /add_activity:
+        post:
+            operationId: addActivity
+            summary: 在活动列表中添加一个活动
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/addactivity"
+            responses:
+                "200":
+                    description: 活动添加成功
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/messageResponse"
+    /delete_activity:
+        delete:
+            operationId: deleteactivity
+            summary: 从活动列表中删除一个活动
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/deleteactivity"
+            responses:
+                "200":
+                    description: 活动删除成功
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/messageResponse"
+
+components:
+    schemas:
+        getActivityList:
+            type: object
+            required: [ActivityList]
+            properties:
+                ActivityList:
+                    type: array
+                    items:
+                        type: string
+                    description: 用户活动列表
+        addactivity:
+            type: object
+            required: [activity]
+            properties:
+                activity:
+                    type: string
+                    description: 需要添加到活动列表的一个活动
+        deleteactivity:
+            type: object
+            required: [activity]
+            properties:
+                activity:
+                    type: string
+                    description: 需要删除的活动
+        generateActivities:
+            type: object
+            required:
+                - character
+                - mood
+                - activity_number
+            properties:
+                character:
+                    type: string
+                    description: 用户的性格
+                mood:
+                    type: string
+                    description: 用户什么心情
+                activity_number:
+                    type: integer
+                    description: 几个活动
+                
+        responseActivities:
+            type: object
+            required: [activitys]
+            properties:
+                activitys:
+                    type: array
+                    items:
+                        type: string
+                        description: 根据用户心情生成的活动
+        messageResponse:
+            type: object
+            required: [message]
+            properties:
+                message:
+                    type: string
+                    description: 回复信息

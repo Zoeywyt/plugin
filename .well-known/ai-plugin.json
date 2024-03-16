@@ -1,0 +1,20 @@
+{
+    "schema_version": "v1",
+    "name_for_human": "心情搭配师",
+    "name_for_model": "mood_designer",
+    "description_for_human": "根据你的心情和个人mbti，个性化推荐适合你的性格和心情的活动，并保存为心情活动推荐单，可以增加、删除和浏览符合你心情建议的活动",
+    "description_for_model": "分析用户性格和心情，推荐并保存适合改该用户心情的活动列表，可以增加、删除、浏览活动列表",
+    "auth": {
+        "type": "service_http"
+    },
+    "api": {
+        "type": "openapi",
+        "url": "PLUGIN_HOST/openapi.yaml"
+    },
+    "logo_url": "https://openai-collections.chat-plugin.lobehub.com/bardeen/logo.webp",
+    "contact_email": "support@example.com",
+    "legal_info_url": "http://www.example.com/legal",
+    "examples": {
+        "url": "PLUGIN_HOST/example.yaml"
+    }
+}
